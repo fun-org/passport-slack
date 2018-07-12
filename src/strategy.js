@@ -152,11 +152,13 @@ class SlackStrategy extends OAuth2Strategy {
    * @param {Function} done
    */
   userProfile(accessToken, done) {
+    console.log("accessToken: " + accessToken);
     needle.request('get', this.slackAuthOptions.profileURL, { token: accessToken }, (error, response, body) => {
       // TODO: better errors
       if (error) {
         done(error);
       } else if (!body.ok) {
+        console.log("BODY " + JSON.stringify(body));
         done(new Error(body.error));
       } else {
         // eslint-disable-next-line no-param-reassign
